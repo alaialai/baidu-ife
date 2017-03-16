@@ -4,4 +4,4 @@
 无css样式
 ## 2.页面效果
 
-![零基础HTML编码作业](http://cghqy.img48.wal8.com/img48/567604_20170315092524/148966942053.png)
+![零基础HTML编码作业](http://p1.bqimg.com/585417/221ff87d5db2e876.png)
