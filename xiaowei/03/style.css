@@ -1,0 +1,67 @@
+#wrap {
+	width: 90%;
+	height: 630px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: #eee;
+	border: 1px solid #999;
+	font-size: 12px;
+}
+
+.column {
+	padding: 20px;
+	background-color: #eee;
+	border: 1px solid #999;
+}
+
+
+#logo {
+	float: left;
+	width: 160px;
+	overflow: hidden;
+}
+
+#sidebar {
+	float: right;
+	width: 80px;
+	height: 590px;
+	overflow: hidden;
+}
+
+#main {
+	margin-left: 240px;
+	margin-right: 160px;
+}
+
+
+
+.teamlogo img {
+	width: 80px;
+}
+
+.teamlogo span {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 20px;
+	font-size: 24px;
+	font-weight: 700;
+}
+
+
+#sidebar img {
+	display: block;
+	width: 80px;
+	height: 80px;
+	margin-bottom: 20px;
+	border: 1px solid #999;
+}
+
+.about-ti img {
+	display: block;
+	margin-left: 40px;
+}
+
+.about-txt table ul li {
+	list-style: none;
+	line-height: 25px;
+}
