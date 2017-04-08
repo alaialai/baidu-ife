@@ -55,12 +55,17 @@ body {
 
 /*主要内容样式 start*/
 #main {
-	max-width: 1242px;
-	margin: 0px auto;
+	overflow: auto;
+	width: 100%;
+	/*margin: 0px auto;*/
+}
+
+.articeldiv {
+	margin-right: 370px;
 }
 
 .article {
-	margin: 20px 23px;
+	margin: 20px 20px;
 	padding: 40px 20px;
 	border: 1px solid #cdcdcd;
 	font-size: 15px;
@@ -105,6 +110,7 @@ body {
 }
 
 .columnofpic {
+	display: inline-block;
 	width: 120px;
 	height: 124px;
 	margin-top: 10px;
@@ -179,7 +185,9 @@ body {
 /*侧栏样式 start*/
 
 #sidebar {
-	margin: 20px 40px 20px 20px;
+	float: right;
+	width: 350px;
+	margin: 20px 20px 20px 20px;
 	border: 1px solid #cdcdcd;
 }
 
@@ -193,7 +201,7 @@ body {
 }
 
 #sidebar .sidebar-form {
-	margin-left: 237px;
+	/*margin-left: 237px;*/
 }
 
 .sidebar-form .ifoinputform {
@@ -216,7 +224,7 @@ body {
 }
 
 .ifoinputform textarea {
-	width: 80%;
+	width: 50%;
 	height: 100px;
 	vertical-align: top;
 	font-size: 15px;
