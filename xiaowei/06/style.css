@@ -67,6 +67,8 @@ body {
 	margin-top: 10px;
 	border-bottom: 1px solid #565455;
 	font-size: 22px;
+	font-family: "微软雅黑";
+	font-weight: 300;
 }
 
 #title h1 span {
@@ -338,30 +340,36 @@ body {
 }
 
 .bigquotes1,.bigquotes2 {
-	/*display: inline-block;*/
 	position: relative;
-	/*width: 20px;*/
 	font-size: 72px;
 	color: #d45d5c;
 	font-family: "黑体";
+	/*background-color: red;*/
 }
 
 .bigquotes2 {
-	height: 0px;
-	top: 30px;
+	float: left;
+	margin: -20px 0px 0px 80px;
+	/*height: 30px;*/
 }
 .bigquotes1 {
 	float: left;
-	left: -30px;
+	margin: 0 20px 0 -35px;
+	height: 30px;
+
+}
+.wordbetweenbigquotes {
+	display: block;
+	margin: 20px 0 0 15px;
 }
 .belowpicbottom-right {
 	float: left;
 	width: 199px;
+	/*padding-left: 5px;*/
 	font-size: 14px;
 	color: #5a5b5b;
 	font-family: "黑体";
 	font-style: italic;
-	line-height: 16px;
 }
 .num0 {
 	float: left;
@@ -375,7 +383,7 @@ body {
 }
 .numone {
 	display: block;
-	margin-left: 60px;
+	margin-left: 70px;
 	line-height: 21px;
 	font-size: 21px;
 	font-family: "黑体";
@@ -385,7 +393,7 @@ body {
 .heloworld {
 	display: block;
 	margin-top: 10px;
-	margin-left: 60px;
+	margin-left: 70px;
 	line-height: 12px;
 	font-size: 12px;
 	font-family: "黑体";
@@ -396,7 +404,7 @@ body {
 /*页脚*/
 #footer {
 	width: 892px;
-	margin-top: 20px;
+	/*margin-top: 20px;*/
 	border-top: 1px solid #938e8c;
 	text-align: right;
 	color: #d55d5c;
