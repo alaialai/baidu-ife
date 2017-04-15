@@ -29,7 +29,7 @@ var aqiData = [
   var pollution = aqiData.filter(function(a) {return a[1]>60});
   pollution.sort(function(x,y) {return x>y?-1:1;});
   for (var i = 0; i < pollution.length; i++) {
-    aqi_list.innerHTML += "<li>"+"第"+(i+1)+"名："+pollution[i][0]+","+pollution[i][1]+"</li>";
+    aqi_list.innerHTML += "<li>"+"第"+(i+1)+"名："+pollution[i];
   }
 
 })();
