@@ -1,0 +1,52 @@
+#container {
+	width: 1400px;
+	height: 360px;
+	margin: 40px auto;
+	border: 1px solid #85B0FB;
+	background-color: #DADADA;
+	border-radius: 20px;
+}
+#operation {
+	width: auto;
+	/*height: 60px;*/
+	margin:20px auto;
+	text-align: center;
+}
+#operation input {
+	display: block;
+	width: 100px;
+	margin: 10px auto;
+}
+button {
+	display: inline-block;
+	width: 80px;
+	/*height: 20px;*/
+	margin: 10px;
+	background-color: #60DBE4;
+	border: 1px solid #60DBE4;
+	border-radius: 5px;
+	color: white;
+}
+#list {
+	overflow: auto;
+	/*垂直翻转ul元素，使柱形位于底层*/
+	-moz-transform:scaleY(-1);
+    -webkit-transform:scaleY(-1);
+    -o-transform:scaleY(-1);
+    transform:scaleY(-1);
+    /*IE*/
+    filter:FlipV;
+}
+#list li {
+	position: relative;
+	bottom:0;
+	float: left;
+	height: 200px;
+	width: 20px;
+	/*padding: 0 10px;*/
+	background-color: #FB4E82;
+	border:1px solid white;
+	color: white;
+	border-radius: 3px;
+	list-style: none;
+}
