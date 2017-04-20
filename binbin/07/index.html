@@ -61,10 +61,9 @@
 					inputChar.style.borderColor="#de000f";
 				}
 				else {
-					var reg = /([\u4e00-\u9fa5][\w]){4,16}/;
-					var a = reg.test(inputCharValue);
+					a=len(inputCharValue);
 					console.log(a);
-					if(a) {
+					if(4<=a&&a<=16) {
 						tip.innerHTML="名称格式正确";
 						inputChar.style.borderColor="#5ebb46";
 						tip.style.color="#5ebb46";
@@ -75,6 +74,20 @@
 						tip.style.color="#de000f";
 					}
 				}
+			}
+
+			function len(str){
+				var len = 0;
+				for(var i=0; i<str.length; i++){
+					var val = str.charCodeAt(i);
+					if(val > 0 && val < 128){
+						len++;
+					}
+					else{
+						len = len + 2;
+					}
+				}
+				return len;
 			}
 
 		})()
