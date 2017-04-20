@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Form Validation</title>
+	<style type="text/css">
+		span {
+			font-size: 30px;
+		}
+		#inputChar {
+			height: 64px;
+			width: 536px;
+			margin-left: 20px;
+			border: 1px solid #ccc;
+			border-radius: 8px;
+			font-size: 30px;
+		}
+		#checkBtn {
+			position: relative;
+			/*top: 5px;*/
+			height: 64px;
+			font-size: 30px;
+			color: white;
+			background-color: #2f79ba;
+			border: 1px solid #2a6da4;
+			border-radius:8px;
+		}
+		#tip {
+			margin-left: 100px;
+			color: #a8a8a8;
+		}
+	</style>
+</head>
+<body>
+
+		<span>名称</span>
+		<input type="" name="" id="inputChar">
+		<button id="checkBtn">验证</button>
+		<p id="tip">必填，长度为4-16个字符</p>
+
+
+	<script type="text/javascript">
+	(function() {
+
+			var inputChar = document.getElementById("inputChar");
+			var checkBtn  = document.getElementById("checkBtn");
+			var tip       = document.getElementById("tip");
+
+			checkBtn.onclick = function() {
+				var inputCharValue = inputChar.value;
+				checkValue(inputCharValue);
+			}
+
+
+			// 验证输入是否符合要求
+			function checkValue(inputCharValue) {
+
+				if(inputCharValue=="") {
+					tip.innerHTML="姓名不能为空";
+					tip.style.color="#de000f";
+					inputChar.style.borderColor="#de000f";
+				}
+				else {
+					var reg = /([\u4e00-\u9fa5][\w]){4,16}/;
+					var a = reg.test(inputCharValue);
+					console.log(a);
+					if(a) {
+						tip.innerHTML="名称格式正确";
+						inputChar.style.borderColor="#5ebb46";
+						tip.style.color="#5ebb46";
+					}
+					else {
+						tip.innerHTML="名称格式不正确";
+						inputChar.style.borderColor="#de000f";
+						tip.style.color="#de000f";
+					}
+				}
+			}
+
+		})()
+
+	</script>
+</body>
+</html>
