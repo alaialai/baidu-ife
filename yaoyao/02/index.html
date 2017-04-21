@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Form Validation</title>
+	<style type="text/css">
+		span {
+			font-size: 30px;
+		}
+		.inputChar {
+			height: 64px;
+			width: 536px;
+			margin-left: 20px;
+			border: 1px solid #ccc;
+			border-radius: 8px;
+			font-size: 30px;
+		}
+		#submitBtn {
+			height: 64px;
+			font-size: 30px;
+			color: white;
+			background-color: #2f79ba;
+			border: 1px solid #2a6da4;
+			border-radius:8px;
+		}
+		.tip {
+			margin-left: 150px;
+			color: #a8a8a8;
+		}
+	</style>
+</head>
+<body>
+
+		<span>名称&nbsp;&nbsp;</span>
+		<input type="text" name="name" class="inputChar" id="inputName">
+		<p class="tip" id="tipOfName">&nbsp;</p>
+		<span>密码&nbsp;&nbsp;</span>
+		<input type="password" name="pwd" class="inputChar" id="inputPwd">
+		<p class="tip" id="tipOfPwd">&nbsp;</p>
+		<span>确认密码</span>
+		<input type="password" name="pwdpwd" class="inputChar" id="confirmPwd">
+		<p class="tip" id="tipOfConfirm">&nbsp;</p>
+		<span>邮箱&nbsp;&nbsp;</span>
+		<input type="text" name="mail" class="inputChar" id="inputMail">
+		<p class="tip" id="tipOfMail">&nbsp;</p>
+		<span>手机&nbsp;&nbsp;</span>
+		<input type="" name="" class="inputChar" id="inputTel">
+		<p class="tip" id="tipOfTel">&nbsp;</p>
+
+		<button id="submitBtn" type="submit">提交</button>
+
+
+	<script type="text/javascript">
+	(function() {
+
+			var inputName    = document.getElementById("inputName");
+			var inputPwd     = document.getElementById("inputPwd");
+			var confirmPwd   = document.getElementById("confirmPwd");
+			var inputMail    = document.getElementById("inputMail");
+			var inputTel     = document.getElementById("inputTel");
+			var submitBtn    = document.getElementById("submitBtn");
+			var tipOfPwd     = document.getElementById("tipOfPwd");
+			var tipOfName    = document.getElementById("tipOfName");
+			var tipOfConfirm = document.getElementById("tipOfConfirm");
+			var tipOfMail    = document.getElementById("tipOfMail");
+			var tipOfTel     = document.getElementById("tipOfTel");
+			var samePwd,name,password,passwordagain,email,telephone;
+
+			//名称输入框获得焦点
+			inputName.onfocus=function() {
+				onfocusStyle(inputName,tipOfName,"必填，长度为4-16个字符");
+			}
+			//名称输入框失去焦点
+			inputName.onblur=function() {
+				var inputNameValue=inputName.value;
+				checkName(inputNameValue);
+			}
+			//密码输入框获得焦点
+			inputPwd.onfocus=function() {
+				onfocusStyle(inputPwd,tipOfPwd,"密码采用数字、字母、特殊字符且长度为8-20位");
+			}
+			//密码输入框失去焦点
+			inputPwd.onblur=function() {
+				var inputPwdValue=inputPwd.value;
+				if(validatePwd(inputPwdValue)) {
+					correctStyle(inputPwd,tipOfPwd,"密码输入正确");
+					password=true;
+				}
+				else {
+					errorStyle(inputPwd,tipOfPwd,"密码输入不正确");
+				}
+			}
+			//确认密码输入框获得焦点
+			confirmPwd.onfocus=function() {
+				onfocusStyle(confirmPwd,tipOfConfirm,"重新输入相同密码");
+			}
+			//确认密码输入框失去焦点
+			confirmPwd.onblur=function() {
+				var confirmPwdValue=confirmPwd.value;
+				var inputPwdValue=inputPwd.value;
+				(confirmPwdValue==inputPwdValue&&!confirmPwdValue=='')?samePwd=true:samePwd=false;
+				if(samePwd) {
+					correctStyle(confirmPwd,tipOfConfirm,"两次密码输入一致");
+					passwordagain=true;
+				}
+				else {
+					errorStyle(confirmPwd,tipOfConfirm,"两次密码输入不一致");
+				}
+			}
+
+			//邮箱输入框获得焦点
+			inputMail.onfocus=function() {
+				onfocusStyle(inputMail,tipOfMail,"输入正确邮箱格式");
+			}
+			//邮箱输入框失去焦点
+			inputMail.onblur=function() {
+				var inputMailValue=inputMail.value;
+				if(checkMail(inputMailValue)) {
+					correctStyle(inputMail,tipOfMail,"邮箱格式正确");
+					email=true;
+				}
+				else {
+					errorStyle(inputMail,tipOfMail,"邮箱格式不正确");
+				}
+			}
+			//手机输入框获得焦点
+			inputTel.onfocus=function() {
+				onfocusStyle(inputTel,tipOfTel,"输入11位手机号");
+			}
+			//手机输入框失去焦点
+			inputTel.onblur=function() {
+				var inputTelValue=inputTel.value;
+				if(checkPhone(inputTelValue)) {
+					correctStyle(inputTel,tipOfTel,"手机号输入正确");
+					telephone=true;
+				}
+				else {
+					errorStyle(inputTel,tipOfTel,"手机号输入不正确");
+				}
+			}
+
+			submitBtn.onclick=function() {
+
+				var inputNameValue=inputName.value;
+				var inputPwdValue=inputPwd.value;
+				var inputMailValue=inputMail.value;
+				var inputTelValue=inputTel.value;
+				if(!name) {
+					alert("名称格式不正确");
+				}
+				if(!password) {
+					alert("密码输入不正确");
+				}
+				if(!passwordagain) {
+					alert("两次密码输入不一致");
+				}
+				if (!email) {
+					alert("邮箱格式不正确");
+				}
+				if (!telephone) {
+					alert("手机号输入不正确");
+				}
+				else if(name&&password&&passwordagain&&email&&telephone) {
+					alert("提交成功");
+				}
+
+			}
+
+
+
+
+
+
+
+
+// ------------------  function -----------------------------
+
+			//获得焦点后的提示样式
+			function onfocusStyle(obj,tip,words) {
+				tip.innerHTML=words;
+				tip.style.color="#a8a8a8";
+				obj.style.borderColor="#a8a8a8";
+			}
+			// 符合要求后的显示样式
+			function correctStyle(obj,tip,words) {
+				tip.innerHTML=words;
+				tip.style.color="#5ebb46";
+				obj.style.borderColor="#5ebb46";
+			}
+
+			// 不符合要求后的显示样式
+			function errorStyle(obj,tip,words) {
+				tip.innerHTML=words;
+				tip.style.color="#de000f";
+				obj.style.borderColor="#de000f";
+			}
+
+			// 验证名称
+			function checkName(inputCharValue) {
+
+				if(inputCharValue=="") {
+					errorStyle(inputName,tipOfName,"姓名不能为空");
+				}
+				else {
+					a=len(inputCharValue);
+					console.log(a);
+					if(4<=a&&a<=16) {
+						correctStyle(inputName,tipOfName,"名称格式正确");
+						name=true;
+						return true;
+					}
+					else {
+						errorStyle(inputName,tipOfName,"名称格式不正确");
+						return false;
+					}
+				}
+			}
+
+			function len(str){
+				var len = 0;
+				for(var i=0; i<str.length; i++){
+					var val = str.charCodeAt(i);
+					if(val > 0 && val < 128){
+						len++;
+					}
+					else{
+						len = len + 2;
+					}
+				}
+				return len;
+			}
+
+			//验证密码
+			// 密码采用数字、字母、特殊字符且长度为8-20位
+			function validatePwd(pwd) {
+				if (/^.*?[\d]+.*$/.test(pwd) && /^.*?[A-Za-z]/.test(pwd)
+				&& /^.*?[~/`!@#$%^&*()_+|{}?;:><\-\]\\[\/].*$/.test(pwd) && /^.{8,20}$/.test(pwd)) {
+					return true;
+				}
+				return false;
+			}
+
+
+
+			//验证邮箱
+			function checkMail(email) {
+				var reg=/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+				if(!reg.test(email) ){
+				    return false;
+				}
+				else{
+					return true;
+				}
+			}
+			//验证手机
+			//11位手机号
+			function checkPhone(phone){
+				var reg=/^1[34578]\d{9}$/;
+			    if(!(reg.test(phone))){
+			        return false;
+			    }
+			    else{
+			    	return true;
+			    }
+			}
+
+		})()
+
+	</script>
+</body>
+</html>
