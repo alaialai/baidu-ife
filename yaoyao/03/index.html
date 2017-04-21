@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单联动</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<form action="" id="unit">
+
+		<input type="radio" class="status" name="status" id="student" checked>在校生
+		<input type="radio" class="status" name="status" id="non_student">非在校生
+
+		<div id="for_student">
+			<p>学校&nbsp;&nbsp;</p>
+
+			<select id="province">
+				<option value="0">请选择所在省份</option>
+				<option value="北京">北京</option>
+				<option value="天津">天津</option>
+				<option value="上海">上海</option>
+			</select>
+
+			<select id="school">
+				<option value="0">请选择学校</option>
+			</select>
+
+		</div>
+
+		<div id="for_non_student">
+			<p>就业单位</p>
+			<input type="text" id="company">
+
+			<script src="script.js"></script>
+			<script type="text/javascript">
+				
+			</script>
+	</form>
+</body>
+</html>

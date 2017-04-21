@@ -1,0 +1,25 @@
+#unit {
+	width: 600px;
+	height: 200px;
+	margin: 40px auto;
+	padding: 20px;
+	background-color: #C3D9DA;
+	font-size: 18px;
+	/*text-align: center;*/
+}
+#student {
+	margin-left: 140px;
+}
+#non_student {
+	margin-left: 160px;
+}
+p {
+	display: inline-block;
+	margin: 50px 30px 0 140px;
+}
+#school {
+	display: inline-block;
+}
+#for_non_student {
+	display: none;
+}
