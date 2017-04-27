@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		#tab {
+			width: 600px;
+			margin: 40px auto;
+			border-collapse:collapse;
+			text-align: center;
+		}
+		#tab thead {
+			height: 30px;
+			background-color: #706C6C;
+			color: white;
+			line-height: 30px;
+		}
+		#tab thead td {
+			position: relative;
+		}
+		#tab tbody tr {
+			height: 30px;
+			line-height: 30px;
+		}
+		#upSpan {
+			position: absolute;
+			top: 3px;
+			right:10px;
+			/*background-color: red;*/
+			border-top: 0px;
+			border-bottom: 10px solid white;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+		}
+		#downSpan {
+			position: absolute;
+			top: 15px;
+			right:10px;
+			/*background-color: red;*/
+			border-bottom: 0px;
+			border-top: 10px solid white;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+		}
+	</style>
+</head>
+<body>
+	<table border="1" id="tab"></table>
+	<script>
+		//表头数据
+		var headData=[
+			{
+				name:"name",
+				label:"姓名",
+				sortable:"false"
+			},
+			{
+				name:"Chinses",
+				label:"语文",
+				sortable:"true"
+			},
+			{
+				name:"math",
+				label:"数学",
+				sortable:"true"
+			},
+			{
+				name:"English",
+				label:"英语",
+				sortable:"true"
+			},
+			{
+				name:"total",
+				label:"总分",
+				sortable:"true"
+			}
+		];
+		//排序数据
+		var datas=[
+			{
+	            name: '小明',
+	            Chinses: 90,
+	            math: 100,
+	            English: 70,
+	            total: 260
+	        },
+	        {
+	            name: '小花',
+	            Chinses: 90,
+	            math: 70,
+	            English: 80,
+	            total: 240
+		        },
+		        {
+	            name: '小红',
+	            Chinses: 70,
+	            math: 90,
+	            English: 70,
+	            total: 230
+	        },
+	        {
+	            name: '小桃',
+	            Chinses: 60,
+	            math: 100,
+	            English: 90,
+	            total: 250
+	        },
+	        {
+	            name: '小张',
+	            Chinses: 80,
+	            math: 80,
+	            English: 70,
+	            total: 230
+	        }
+		];
+		var Table=document.getElementById("tab");
+		init();
+		//插入表头
+		function addThead() {
+			var tHead=document.createElement("thead");
+			// var headDataLen=headData.length;
+			var tHeadTr=addTr();
+			headData.forEach(function(head) {
+				var tHeadTds=addTd(head.label);
+				if(head.sortable) {
+					var val=head.name;
+					var upSpan=document.createElement("span");
+					upSpan.id="upSpan";
+					addEvnet(upSpan,"click",function() {
+						upSort(val);
+					});
+					var downSpan=document.createElement("span");
+					downSpan.id="downSpan";
+					addEvnet(downSpan,"click",function() {
+						downSort(val);
+					})
+					tHeadTds.appendChild(upSpan);
+					tHeadTds.appendChild(downSpan);
+				}
+				tHeadTr.appendChild(tHeadTds);
+			});
+
+
+
+
+			
+			//为什么用for循环时会出现问题？
+			// for (var i = 0; i < headDataLen; i++) {
+			// 	var tHeadTds=addTd(headData[i].label);
+			// 	// console.log(tHeadTds);
+			// 	if(headData[i].sortable=="true") {
+			// 		var val=headData[i].name;
+			// 		console.log(val);
+			// 		var upSpan=document.createElement("span");
+			// 		upSpan.id="upSpan";
+			// 		addEvnet(upSpan,"click",function() {
+			// 			upSort(val);
+			// 		});
+			// 		var downSpan=document.createElement("span");
+			// 		downSpan.id="downSpan";
+			// 		addEvnet(downSpan,"click",function() {
+			// 			downSort(val);
+			// 		})
+			// 		tHeadTds.appendChild(upSpan);
+			// 		tHeadTds.appendChild(downSpan);
+			// 	}
+			// 	tHeadTr.appendChild(tHeadTds);
+			// };
+			tHead.appendChild(tHeadTr);
+			Table.appendChild(tHead);
+		}
+
+		//插入数据
+		function addTbody() {
+			var tBody=document.createElement("tbody");
+			for (var i = 0; i < datas.length; i++) {
+				var tBodyTrs=addTr();
+				for(var key in datas[i]) {
+					var tBodyTds=addTd(datas[i][key]);
+					tBodyTrs.appendChild(tBodyTds);
+				}
+				tBody.appendChild(tBodyTrs);
+			}
+			Table.appendChild(tBody);
+		}
+		//生成tr
+		function addTr() {
+			return document.createElement("tr");
+		}
+		//生成td
+		function addTd(val) {
+			var Td=document.createElement("td");
+			Td.innerText=val;
+			return Td;
+		}
+		//设置兼容事件
+		function addEvnet(ele,event,func) {
+			if(ele.addEventListener) {
+				ele.addEventListener(event,func,false);
+			}
+			if(ele.attachEvent) {
+				ele.attachEvent("on"+event.func);
+			}
+			else {
+				ele["on"+event]=func;
+			}
+		}
+		//二维数组排序
+		//升序
+		function upSort(val) {
+			sort1(val);
+			Table.innerHTML = '';
+			init();
+		}
+		//降序
+		function downSort(val) {
+			sort2(val);
+			Table.innerHTML = '';
+			init();
+		}
+		function sort1(val) {
+			var byScore=function(a,b) {
+				return a[val]-b[val];
+			}
+			return datas.sort(byScore);
+		}
+		function sort2(val) {
+			var byScore=function(a,b) {
+				return b[val]-a[val];
+			}
+			return datas.sort(byScore);
+		}
+		//各行变色
+		function setLineBg() {
+			var trs=document.getElementsByTagName("tr");
+			for (var i = 1; i < trs.length; i++) {
+				if(i%2==0) {
+					trs[i].style.backgroundColor="#B7B4B4";
+				}
+			}
+		}
+		function init() {
+			addThead();
+			addTbody();
+			// setLineBg();
+		}
+	</script>
+</body>
+</html>
