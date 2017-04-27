@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>UI组件之浮出层</title>
+	<style type="text/css">
+		body {
+			text-align: center;
+		}
+		li {
+			list-style: none;
+		}
+		#omask {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			left: 0;
+			top: 0;
+			background: rgba(0,0,0,0.5);
+			z-index: 100;
+
+		}
+		#dialog {
+			position: fixed;
+			z-index: 101;
+			min-width: 500px;
+            min-height: 400px;
+            border: 2px solid #000;
+            background-color: #fff;
+		}
+		#diaTitle {
+			min-height: 80px;
+			border-bottom:2px solid #000;
+		}
+		#diacontent {
+			min-height: 200px;
+		}
+		#diacontent button {
+			margin: 1rem;
+            padding: 10px 20px;
+            border: 1px solid #aaa;
+            background: #fff;
+            border-radius: 3px;
+            transition: 0.5s;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+        <li> 浮出层的中心默认在屏幕正中</li>
+        <li> 当浮出层显示时，屏幕滚动时，浮出层始终保持位置固定在屏幕正中，不随屏幕滚动而变化位置。或者禁止页面在有浮出层出现时滚动</li>
+        <li> 当浮出层显示时，点击浮出层以外的部分，默认为关闭浮出层。可以实现一个半透明的遮罩来挡住浮出层外的部分</li>
+        <li> 浮出层的样式、内容和逻辑尽量解耦</li>
+        <li> 提供使用JavaScript控制浮出层展现和关闭的接口</li>
+        <li> 浮出层的窗口大小可以是一个默认固定值，也可以是随内容变化而自适应变化，也可以是通过接口参数进行调整，自行根据自己能力进行选择</li>
+        <li> 有能力的同学可以实现浮出层的拖拽移动浮出窗口位置以及拖拽边缘来放大缩小浮出窗口的功能</li>
+    </ul>
+    <button id="showbutton">show</button>
+    <script>
+
+    	let sbtn=$("showbutton");
+    	let gbody=document.body;
+    	let myDialog=function() {
+    		this.init();
+    	};
+    	myDialog.prototype= {
+    		init:function() {
+    			console.log("初始化");
+    		},
+    		show:function() {
+    			//设置半透明遮罩层
+    			let mask=document.createElement("div");
+    			mask.id="omask";
+    			gbody.appendChild(mask);
+    			addEvent($("omask"),"click",function() {
+    				dia.hide();
+    			});
+
+    			//UI组件
+    			let dialog=document.createElement("div");
+    			dialog.id="dialog";
+    			dialog.style.left = "50%";
+                dialog.style.top = "50%";
+                dialog.style.transform = 'translate(-50%,-50%) scale(1,1)';
+    			dialog.innerHTML="<div id='container'><div id='diaTitle'>title</div><div id='diacontent'>content<br><button id='dConfirm' value='确定'>确定</button><button id='dConcel' value='取消'>取消</button></div></div>";
+    			gbody.appendChild(dialog);
+    			addEvent($("dConfirm"),"click",function() {
+    				dia.hide();
+    			});
+    			addEvent($("dConcel"),"click",function() {
+    				dia.hide();
+    			});
+    			this.setDrag();
+    			this.setSize();
+    		},
+    		hide:function() {
+    			gbody.removeChild(omask);
+    			gbody.removeChild(dialog);
+    		},
+    		setDrag:function() {
+    			let isClick=false;
+    			addEvent($("diaTitle"),"mousedown",function() {
+    				isClick=true;
+    				let diaX=event.clientX-dialog.offsetLeft;
+    				let diaY=event.clientY-dialog.offsetTop;
+    				let move=function() {
+    					if(isClick) {
+    						$("diaTitle").style.cursor="move";
+    						dialog.style.left=event.clientX-diaX+"px";
+    						dialog.style.top=event.clientY-diaY+"px";
+    					}
+    				};
+    				addEvent(document,"mousemove",move);
+    				addEvent(document,"mouseup",function() {
+    					isClick=false;
+    				});
+    			})
+    		},
+    		setSize:function() {
+    			// let isClick=false;
+    			let sizeBlock=document.createElement("div");
+    			sizeBlock.style.width="10px";
+    			sizeBlock.style.height="10px";
+    			sizeBlock.style.backgroundColor="red";
+    			sizeBlock.style.position="absolute";
+    			sizeBlock.style.bottom="0";
+    			sizeBlock.style.right="0";
+    			sizeBlock.style.cursor="nw-resize";
+    			dialog.appendChild(sizeBlock);
+    			addEvent(sizeBlock,"mousedown",function() {
+    				let isClick=true;
+    				let diaWidth=event.clientX-dialog.offsetWidth;
+    				let diaHeight=event.clientY-dialog.offsetHeight;
+    				let resize=function() {
+    					if(isClick) {
+    						dialog.style.width=event.clientX-diaWidth+"px";
+    						dialog.style.height=event.clientY-diaHeight+"px";
+    					}
+    				};
+    				addEvent(document,"mousemove",resize);
+    				addEvent(document,"mouseup",function() {
+    					isClick=false;
+    				});
+    			});
+    		}
+    	}
+
+
+    	// 设置获取对象的快捷方式
+    	function $(ele) {
+    		return document.getElementById(ele);
+    	}
+    	//设置兼容事件
+    	function addEvent(ele,event,func) {
+    		if(ele) {
+    			if(ele.addEventListener) {
+    				ele.addEventListener(event,func,false);
+    			}
+    			else if(ele.attachEvent) {
+    				ele.attachEvent("on"+event,func);
+    			}
+    			else {
+    				ele["on"+event]=func;
+    			}
+    		}
+    	}
+    	let dia=new myDialog();
+    	window.onload=function() {
+    		addEvent($('showbutton'),'click',function() {
+    			dia.show();
+    		})
+    	}
+    </script>
+</body>
+</html>
